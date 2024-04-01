@@ -5,7 +5,7 @@
 #include <ctime>
 using namespace std;
 
-#define Path "data\info.text"
+#define Path "data\\info.text"
 
 int main() {
 	string username;
