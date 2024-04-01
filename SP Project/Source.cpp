@@ -16,10 +16,15 @@ int main() {
         file.open (Path, ios::app | ios::out | ios::ate);
 
 	cout << "username:\t\t";
-	file << getline(cin, username);
+	getline(cin, username);
+	file << username << endl;
 	cout << "password:\t\t";
 	correctpassword=cin.get();
-	file << correctpassword;
+	while (correctpassword!="\n"){
+		cout << "*";
+	correctpassword=cin.get();
+	file << correctpassword << endl;
+	}
 	file.close();
 	return 0;
 }
