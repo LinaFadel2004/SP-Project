@@ -4,10 +4,22 @@
 #include <conio.h>
 #include <ctime>
 using namespace std;
-string Path = "data\info.text";
+
+#define Path "data\info.text"
+
 int main() {
+	string username;
+	char correctpassword[];
 	
 	cout << "\tOnline Exam System\t\n";
-        ofstream file (Path, ios::app | ios::out | ios::ate);
+	ofstream file;
+        file.open (Path, ios::app | ios::out | ios::ate);
+
+	cout << "username:\t\t";
+	file << getline(cin, username);
+	cout << "password:\t\t";
+	correctpassword=cin.get();
+	file << correctpassword;
+	file.close();
 	return 0;
 }
