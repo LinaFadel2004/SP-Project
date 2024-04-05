@@ -3,6 +3,7 @@
 #include <conio.h>
 #include <ctime>
 using namespace std;
+int choice;
 struct Subjects
 {
 	string course_code;
@@ -99,7 +100,7 @@ bool sign_in(int& user)
 			if (username == teacher[i].Username && password == teacher[i].correctpassword)
 			{
 				cout << " login successfully\n";
-				cout << "  Welcome back " << teacher[i].Username << endl;
+				cout << " Welcome back " << teacher[i].Username << endl;
 				user = i + 1;
 				verified = true;
 				break;
@@ -159,8 +160,6 @@ bool sign_in(int& user)
 
 
 	} while (!verified && trials > 0);
-
-
 	cout << " You have reached the maximum number of trials, please try again \n";
 	return false;
 
@@ -169,7 +168,6 @@ bool sign_in(int& user)
 
 int main_menu_teacher() 
 {
-	int choice;
 	cout << "Press\n"
 		<< "1 --> My Profile\n" //username, password, course code 
 		<< "2 --> Question Bank\n" // add, delete all questions in one place 
@@ -183,7 +181,6 @@ int main_menu_teacher()
 
 int main_menu_stud()
 {
-	int choice;
 	cout << "Press\n"
 		<< "1 --> My Profile\n" //username, password, course code, id
 		<< "2 --> Select Course\n" // course code --> select test --> answer it (limited time) --> submit
@@ -196,21 +193,15 @@ int main_menu_stud()
 void handle_teacher(int user)
 {
 	char ans;
-	int choice;
-
 	do
 	{
 		choice = main_menu_teacher();
 		switch (choice)
 		{
 		case 1:
-			break;
 		case 2:
-			break;
 		case 3:
-			break;
 		case 4:
-			break;
 		case 5:
 			break;
 		case 6:
@@ -230,10 +221,7 @@ void handle_teacher(int user)
 
 void handle_student()
 {
-	int choice;
 	char ans;
-
-	
 	do
 	{
 		choice = main_menu_teacher();
