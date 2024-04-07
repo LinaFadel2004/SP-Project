@@ -412,21 +412,42 @@ void select_course()
 void view_grades()
 {
     int choice;
-    cout << "Press\n"
-        << "1 --> View All Your Grades " << endl
-        << "2 --> View Structured Programming grade " << endl
-        << "3 --> View History grade" << endl;
-    cin >> choice;
-    switch (choice)
+    char ans;
+    do
     {
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    default:
-        cout << "Invalid choice, please choose from 1 to 3";
+        cout << "Press\n"
+            << "1 --> View All Your Grades " << endl
+            << "2 --> View Structured Programming grade " << endl
+            << "3 --> View History grade" << endl;
+        cin >> choice;
+        switch (choice)
+        {
+        case 1:
+            cout << "Course Name \t\t Course Code \t\t Test Name \t\t Your Grade\n";
+            for (int i = 0; i < 2; i++)
+                if (!stud.course.course_name[i].empty())
+                    cout << stud.course.course_name[i] <<
+                    "\t\t" << teacher[i].course.course_code[i] << "\t\t" <<
+                    stud.course.grade[i] << endl;
             break;
-    }
+        case 2:
+            cout << "Course Name \t\t Course Code \t\t Test Name \t\t Your Grade\n";
+            cout << teacher[0].course.course_name[0] << "\t\t" <<
+                teacher[0].course.course_code[0] << "\t\t" <<
+                endl;//باقي نضيف اسامي الامتحانات والدرجات في لووب
+            break;
+        case 3:
+            cout << "Course Name \t\t Course Code \t\t Test Name \t\t Your Grade\n";
+            cout << teacher[1].course.course_name[1] << "\t\t" <<
+                teacher[1].course.course_code[1] << "\t\t" <<
+                endl; //باقي نضيف اسامي الامتحانات والدرجات في لووب
+            break;
+        default:
+            cout << "Invalid choice, please choose from 1 to 3";
+            ans = 'y';
+            continue;
+        }
+        cout << "Go Back? (y/n)\n";
+        cin >> ans;
+    } while (ans == 'y' || ans == 'Y');
 }
