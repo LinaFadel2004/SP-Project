@@ -59,10 +59,10 @@ void init()
     teacher[0] = { "Lina","1234" };
     teacher[0].course.course_name[0] = "Structured programming";
     teacher[0].course.course_code[0] = "spcis";
-    teacher[1] = { "M","0" }; //Maha 0000
+    teacher[1] = { "m","0" }; //Maha 0000
     teacher[1].course.course_name[1] = "History";
     teacher[1].course.course_code[1] = "hicis";
-    stud = { 2023170,"A","2" }; //Aya 2004
+    stud = { 2023170,"a","2" }; //Aya 2004
 }
 
 bool sign_in()
@@ -169,6 +169,7 @@ bool sign_in()
 
 
 }
+
 void check_user()
 {
 
@@ -185,11 +186,12 @@ void check_user()
         break;
     }
 }
+
 int main_menu_teacher()
 {
     int choice;
     cout << "Press...\n"
-        << "1 --> My Profile\n" //username, password, course code 
+        << "1 --> My Profile\n" //username, password, course code
         << "2 --> Question Bank\n" // add, delete all questions in one place 
         << "3 --> Create New Test\n" //generate time for test, add questions to test
         << "4 --> Edit Existing Test\n" //add questions, remove questions, edit test time
@@ -209,6 +211,18 @@ int main_menu_stud()
         << "5 --> Logout :(\n"; //directed to login page
     cin >> choice;
     return choice;
+}
+
+void initExam()
+{
+    exist_Exam.examText[0] = "What is the capital of Egypt?\n";
+    exist_Exam.examText[1] = "What is the area of Egypt?\n";
+    exist_Exam.examText[2] = "How many governments in Egypt?\n";
+    exist_Exam.examText[3] = "When is the 6th October war?\n";
+    exist_Exam.examAnswer[0] = "Cairo\n";
+    exist_Exam.examAnswer[1] = "98 km2\n";
+    exist_Exam.examAnswer[2] = "27\n";
+    exist_Exam.examAnswer[3] = "1973\n";
 }
 void edit_exam()
 {
@@ -272,20 +286,9 @@ void edit_exam()
             break;
         }
         }
-        cout << "Do you want to eidt another question? (Y / N)\n";
+        cout << "Do you want to edit another question? (Y / N)\n";
         cin >> again;
     } while (again == 'y' || again == 'Y');
-}
-void initExam()
-{
-    exist_Exam.examText[0] = "What is the capital of Egypt?\n";
-    exist_Exam.examText[1] = "What is the area of Egypt?\n";
-    exist_Exam.examText[2] = "How many governments in Egypt?\n";
-    exist_Exam.examText[3] = "When is the 6th October war?\n";
-    exist_Exam.examAnswer[0] = "Cairo\n";
-    exist_Exam.examAnswer[1] = "98 km2\n";
-    exist_Exam.examAnswer[2] = "27\n";
-    exist_Exam.examAnswer[3] = "1973\n";
 }
 
 void handle_teacher()
@@ -375,6 +378,7 @@ void profile_stud()
 
 
 }
+
 void select_course()
 {
     int choice;
@@ -395,7 +399,7 @@ void select_course()
             stud.course.course_name[1] = "History";
             break;
         default:
-            cout << "invalid choice please choose 1 or 2\n";
+            cout << "Invalid choice, please choose 1 or 2\n";
             ans = 'y';
             continue;
         }
@@ -404,11 +408,25 @@ void select_course()
     } while (ans == 'y' || ans == 'Y');
 
 }
+
 void view_grades()
 {
+    int choice;
     cout << "Press\n"
         << "1 --> View All Your Grades " << endl
         << "2 --> View Structured Programming grade " << endl
         << "3 --> View History grade" << endl;
+    cin >> choice;
+    switch (choice)
+    {
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    default:
+        cout << "Invalid choice, please choose from 1 to 3";
+            break;
+    }
 }
-
