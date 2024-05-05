@@ -356,16 +356,16 @@ void handle_teacher()
 			ans = 'y';
 			continue;
 		default:
-			cout << "\n\tinvalid choice please choose from 1 to 6\n";
+			space();
+			cout << "invalid choice please choose from 1 to 6\n";
 			ans = 'y';
 			continue;
 		}
 		space();
-		cout <<"Back to the Main Menu? (y / n)\n";
+		cout <<"Back to the Main Menu? (y / n)\n\t\t\t\t\t";
 		cin >> ans;
 	} while (ans == 'Y' || ans == 'y');
 	system("cls");
-	space();
 	cout<<"Thank you for using our system :)\n";
 	cout << "\n*-----------------------------------------------------------------------------------*\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
@@ -406,8 +406,7 @@ void handle_student()
 		cin >> ans;
 	} while (ans == 'y' || ans == 'Y');
 	system("cls");
-	space();
-	cout << "Thank you for using our system :)\n";
+	cout << "\n\n\n\n\n\n\n\t\t\t\t\tThank you for using our system :)\n";
 	cout << "\n*-----------------------------------------------------------------------------------*\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
 
@@ -458,7 +457,7 @@ void Delete(string Question[][NUM_OF_OPTIONS], short Correct_ans[], short dele_q
 			Question[NUM_OF_QUESTIONS - 1][j].clear();
 		Correct_ans[NUM_OF_QUESTIONS - 1] = NULL;
 		space();
-		cout << "*--Done--*";
+		cout << "*--Done--*\n\t\t\t\t\t";
 	}
 	else
 	{
@@ -490,25 +489,27 @@ void Greades(short index_sub)
 int main_menu_teacher()
 {
 	int choice;
-	cout << "\n|Press...\n\n"
-		<< "1 --> My Profile\n" //username, password, course code 
-		<< "2 --> Question Bank\n" // add, delete all questions in one place 
-		<< "3 --> Create New Test\n" //generate time for test, add questions to test
-		<< "4 --> Edit\\Display Existing Test\n" //add questions, remove questions, edit test time & name ,delete exam,display ques exam
-		<< "5 --> View Students Grades\n" // username stud, test name/num ,grade
-		<< "6 --> Logout :(\n"; //directed to login page
+	space();
+	cout << "|Press...\n\n\t\t\t\t\t"
+		<< "1 --> My Profile\n\t\t\t\t\t" //username, password, course code 
+		<< "2 --> Question Bank\n\t\t\t\t\t" // add, delete all questions in one place 
+		<< "3 --> Create New Test\n\t\t\t\t\t" //generate time for test, add questions to test
+		<< "4 --> Edit\\Display Existing Test\n\t\t\t\t\t" //add questions, remove questions, edit test time & name ,delete exam,display ques exam
+		<< "5 --> View Students Grades\n\t\t\t\t\t" // username stud, test name/num ,grade
+		<< "6 --> Logout :(\n\t\t\t\t\t"; //directed to login page
 	cin >> choice;
 	return choice;
 }
 int main_menu_stud()
 {
+	space();
 	int choice;
 	cout << "\n|Press...\n\n"
 		<< "1 --> My Profile\n" //username, password, course code, id
 		<< "2 --> Select Course to do exam\n" // select course --> course name & course code 
 		//select course --> select test --> answer it (limited time) --> submit
 		<< "3 --> View My Grades\n" // see all grades --> see grades for all subjects, course code --> see grades for just one subject
-		<< "4 --> Logout :(\n"; //directed to login page
+		<< "4 --> Logout :(\n\t\t\t\t\t"; //directed to login page
 	cin >> choice;
 	return choice;
 }
@@ -525,11 +526,11 @@ void questions_bank()
 	do
 	{
 		space();
-		cout<<"    Press...\n"
-			<< "1--> Add New Question\n"
-			<< "2-->Edit Question\n"
-			<< "3-->Delete Question\n"
-			<< "4-->Cancel\n\t\t\t\t\t";
+		cout << "    Press...\n\t\t\t\t\t";
+		cout << "1--> Add New Question\n\t\t\t\t\t";
+		cout << "2-->Edit Question\n\t\t\t\t\t";
+		cout << "3-->Delete Question\n\t\t\t\t\t";
+		cout<< "4-->Cancel\n\t\t\t\t\t";
 		cin >> choice;
 		switch (choice)
 		{
@@ -538,7 +539,6 @@ void questions_bank()
 			cout << "\n\n";
 			space();
 			Add();
-			display_question(teacher[user].ques_bank.Question, teacher[user].ques_bank.Correct_ans);
 			break;
 		case 2:
 			system("cls");
@@ -553,8 +553,9 @@ void questions_bank()
 			if (!teacher[user].ques_bank.Question[0][0].empty()) //if the first question is empty,it means that there are no any questions
 			{
 				space();
-				cout << "\n\t*Please Enter number of question to delete it*\n\n";
+				cout << "\n\t\t\t\t\t*Please Enter number of question to delete it*\n\n";
 				display_question(teacher[user].ques_bank.Question, teacher[user].ques_bank.Correct_ans);
+				cout << "\t\t\t\t\t";
 				cin >> dele_ques;
 				Delete(teacher[user].ques_bank.Question, teacher[user].ques_bank.Correct_ans, dele_ques);
 			}
@@ -575,7 +576,7 @@ void questions_bank()
 			ans = 'y';
 			continue;
 		}
-		cout << "Another Edit? (y/n)\n";
+		cout << "\n\t\t\t\t\tAnother Edit? (y/n)\n\t\t\t\t\t";
 		cin >> ans;
 	} while (ans == 'y' || ans == 'Y');
 
@@ -601,7 +602,7 @@ void Add()
 		cout << "Type the new question\n\t\t\t\t\t";
 		cout << "-----------------------";
 		cin.ignore();  //It ignores any remaining characters (typically \n) in the buffer after reading with cin
-		cout << "\t\t\t\t\t";
+		cout << "\n\t\t\t\t\t";
 		getline(cin, teacher[user].ques_bank.Question[empty_raw][0]);
 		space();
 		cout << "Type the options\n\n";
@@ -626,9 +627,9 @@ void edit_question_bank()
 	short edit_ques;
 	if (!teacher[user].ques_bank.Question[0][0].empty())
 	{
-		display_question(teacher[user].ques_bank.Question, teacher[user].ques_bank.Correct_ans);
 		space();
-		cout << "Please Enter number of question to edit it \n";
+		cout << "*Please Enter number of question to edit it*\n\t\t\t\t\t";
+		display_question(teacher[user].ques_bank.Question, teacher[user].ques_bank.Correct_ans);
 		cin >> edit_ques;
 		for (int j = 0; j < NUM_OF_OPTIONS; j++)
 			teacher[user].ques_bank.Question[edit_ques - 1][j] = "";
@@ -645,11 +646,12 @@ void choice_edit_Exam(short index_exam)
 	char ans;
 	do
 	{
+		system("cls");
 		space();
-		cout << "    |Press edit type...\n\n"
-			<< "1 --> Exam name \n"
-			<< "2 --> Exam time\n"
-			<< "3 --> Exam questions \n"
+		cout << "|Press edit type...\n\n\t\t\t\t\t"
+			<< "1 --> Exam name \n\t\t\t\t\t"
+			<< "2 --> Exam time\n\t\t\t\t\t"
+			<< "3 --> Exam questions\n\t\t\t\t\t"
 			<< "4 --> cancel\n\t\t\t\t\t";
 		cin >> choice;
 		switch (choice)
@@ -706,30 +708,30 @@ void edit_and_display_pre_exam()
 			system("cls");
 			space();
 			info_pre_exam();
-			cout << "\n\t|Press...\n\n"
-				<< "1 --> Display Exam Questions\n"
-				<< "2 --> Edit Exam\n"
-				<< "3 --> Delete Exam\n"
-				<< "4 --> Cancel\n";
+			cout << "\n\t\t\t\t\t|Press...\n\n\t\t\t\t\t"
+				<< "1 --> Display Exam Questions\n\t\t\t\t\t"
+				<< "2 --> Edit Exam\n\t\t\t\t\t"
+				<< "3 --> Delete Exam\n\t\t\t\t\t"
+				<< "4 --> Cancel\n\t\t\t\t\t";
 			cin >> choice;
 			switch (choice)
 
 			{
 			case 1:
 				space();
-				cout << "Enter the test number to display it \n\n\t\t\t\t\t";
+				cout << "*Enter the test number to display it* \n\n\t\t\t\t\t";
 				cin >> test_num;
 				display_question(teacher[user].course.test[test_num - 1].examText, teacher[user].course.test[test_num - 1].examAnswer);
 				break;
 			case 2:
 				space();
-				cout << "\n\tEnter the test number to edit it \n\n\t\t\t\t\t";
+				cout << "*Enter the test number to edit it*\n\n\t\t\t\t\t";
 				cin >> test_num;
 				choice_edit_Exam(test_num - 1);
 				break;
 			case 3:
 				space();
-				cout << "\n\tEnter the test number to delete it \n\n\t\t\t\t\t";
+				cout << "*Enter the test number to delete it*\n\n\t\t\t\t\t";
 				cin >> test_num;
 				delete_exam(test_num - 1);
 				cout << "\n\tDone\n";
@@ -744,7 +746,7 @@ void edit_and_display_pre_exam()
 				continue;
 			}
 				space();
-			cout << "Back to Edit & Diplay menu? (y/n)\n";
+			cout << "Back to Edit & Display menu? (y/n)\n\n\t\t\t\t\t";
 			cin >> ans;
 
 		} while (ans == 'y' || ans == 'Y');
@@ -757,9 +759,11 @@ void time(short index_test)
 {
 	space();
 	cout << "Enter the exam time hours -> min -> sec\n\t\t\t\t\t";
-	cin >> teacher[user].course.test[index_test].time.hours
-		>> teacher[user].course.test[index_test].time.min
-		>> teacher[user].course.test[index_test].time.sec;
+	cin >> teacher[user].course.test[index_test].time.hours;
+	cout << "\n\t\t\t\t\t";
+	cin >> teacher[user].course.test[index_test].time.min;
+	cout << "\n\t\t\t\t\t";
+	cin >> teacher[user].course.test[index_test].time.sec;
 	space();
 	cout << teacher[user].course.test[index_test].time.hours << " h : "
 		<< teacher[user].course.test[index_test].time.min << " min : "
@@ -789,11 +793,11 @@ void Creat_new_test()
 				if (teacher[user].course.test[index_test].exam_name.empty())
 				{
 		            space();
-					cout << "Type the Exam name\n\t\t\t\t\t";
+					cout << "*Type the Exam name*\n\t\t\t\t\t";
 					cin >> teacher[user].course.test[index_test].exam_name;
 					time(index_test);
 		            space();
-					cout << "Enter the number of the selected questions\n";
+					cout << "*Enter the number of the selected questions*\n";
 					display_question(teacher[user].ques_bank.Question, teacher[user].ques_bank.Correct_ans);
 					for (int i = 0; i < NUM_OF_QUESTIONS; i++)
 					{
@@ -889,7 +893,7 @@ void Select_ques(short num_selected_ques[NUM_OF_QUESTIONS], short index_test)
 
 	}
 	space();
-	cout << "\n*--Done--*\n";
+	cout << "*--Done--*\n";
 
 }
 void add_new_ques(short index_exam)
@@ -905,7 +909,7 @@ void add_new_ques(short index_exam)
 		}
 	}
 	space();
-	cout << "Enter the number of the questions you want to add\n";
+	cout << "*Enter the number of the questions you want to add*\n";
 	display_question(teacher[user].ques_bank.Question, teacher[user].ques_bank.Correct_ans);
 	for (int i = 0; i < NUM_OF_QUESTIONS; i++)
 	{
@@ -942,17 +946,19 @@ void choose_aQues(short index_exam)
 {
 
 	short num_edited_ques, num_selected_ques;
+	system("cls");
 	space();
-	cout << "Your Exam is:\n\t\t\t\t\t------------------------------\n\n";
+	cout << "|Your Exam is : \n\t\t\t\t\t------------------------\n\n";
 	display_question(teacher[user].course.test[0].examText, teacher[user].course.test[0].examAnswer);
 	space();
-	cout << "Enter the index of the question you want to edit in this exam \n\t\t\t\t\t";
+	cout << "*Enter the index of the question you want to edit in this exam*\n\t\t\t\t\t";
 	cin >> num_edited_ques;
+	system("cls");
 	space();
-	cout << "Your Test Bank is:\n\t\t\t\t\t------------------------------\n\n";
+	cout << "|Your Test Bank is:\n\t\t\t\t\t------------------------------\n\n";
 	display_question(teacher[user].ques_bank.Question, teacher[user].ques_bank.Correct_ans);
 	space();
-	cout << "the index of the question you want from the test bank\n\t\t\t\t\t";
+	cout << "*the index of the question you want from the test bank*\n\t\t\t\t\t";
 	cin >> num_selected_ques;
 	for (int j = 0; j < NUM_OF_OPTIONS; j++)
 		teacher[user].course.test[index_exam].examText[num_edited_ques - 1][j] = teacher[user].ques_bank.Question[num_selected_ques - 1][j];
@@ -969,10 +975,10 @@ void Edit_Exam_questions(short index_exam)
 	do
 	{
 		space();
-		cout << "    |Press...\n\n"
-			<< "1-Add new question\n"
-			<< "2-Change a question from test bank\n"
-			<< "3-Delete a question\n"
+		cout << "|Press...\n\n\t\t\t\t\t"
+			<< "1-Add new question\n\t\t\t\t\t"
+			<< "2-Change a question from test bank\n\t\t\t\t\t"
+			<< "3-Delete a question\n\t\t\t\t\t"
 			<< "4-Cancel\n\t\t\t\t\t";
 		cin >> ansr;
 		switch (ansr)
@@ -991,7 +997,7 @@ void Edit_Exam_questions(short index_exam)
 			short dele_ques;
 			display_question(teacher[user].course.test[index_exam].examText, teacher[user].course.test[index_exam].examAnswer);
 			space();
-			cout << "Enter the number of the question you want to delete\n\t\t\t\t\t";
+			cout << "*Enter the number of the question you want to delete*\n\t\t\t\t\t";
 			cin >> dele_ques;
 			Delete(teacher[user].course.test[index_exam].examText, teacher[user].course.test[index_exam].examAnswer, dele_ques);
 			break;
@@ -1232,7 +1238,7 @@ void Display_Exams(short index_exam, short index_sub, short stude_ans[])
 			cout << "\n" << i + 1 << " --> " << teacher[index_sub].course.test[index_exam].examText[i][0] << endl;
 			for (int j = 1; j < NUM_OF_OPTIONS; j++)
 				cout << " " << j << " --> " << teacher[index_sub].course.test[index_exam].examText[i][j] << "\t\t";
-			cout << "\n" << "Enter your answer number OR Enter '0' to skip\n";
+			cout << "\n\t\t\t\t\t" << "Enter your answer number OR Enter '0' to skip\n\t\t\t\t\t";
 			if (time_is_finished)
 				break;
 			else
