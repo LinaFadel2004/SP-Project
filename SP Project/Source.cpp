@@ -86,6 +86,7 @@ void profile_stud();
 
 
 //teacher functions
+void view_student();
 void questions_bank();
 void Add();
 void edit_question_bank();
@@ -99,7 +100,6 @@ void add_new_ques(short index_exam);
 void delete_exam(short index_test);
 void choose_aQues(short index_exam);
 void Edit_Exam_questions(short index_exam);
-
 
 //student functions
 void select_course();
@@ -348,6 +348,8 @@ void handle_teacher()
 			edit_and_display_pre_exam();
 			break;
 		case 5:
+			system("cls");
+			view_student();
 			break;
 		case 6:
 			system("cls"); //to clear the screen and only display the sign in function
@@ -792,12 +794,12 @@ void Creat_new_test()
 			{
 				if (teacher[user].course.test[index_test].exam_name.empty())
 				{
-		            space();
-					cout << "*Type the Exam name*\n\t\t\t\t\t";
+		            space(); 
+					cout << "*Type the Exam name*\n\t\t\t\t\t ------------------\n\t\t\t\t\t";
 					cin >> teacher[user].course.test[index_test].exam_name;
 					time(index_test);
-		            space();
-					cout << "*Enter the number of the selected questions*\n";
+		            space();  
+					cout << "*Enter the number of the selected questions*\n\t\t\t\t\t------------------------------------------\n";
 					display_question(teacher[user].ques_bank.Question, teacher[user].ques_bank.Correct_ans);
 					for (int i = 0; i < NUM_OF_QUESTIONS; i++)
 					{
@@ -812,7 +814,10 @@ void Creat_new_test()
 			}
 		}
          else
-			cout << "There are no questions to choose from \n";
+		{
+			system("cls");
+			cout << "\n\n\n\n\n\n\t\t\t\t\tThere are no questions to choose from \n";
+		}
 	}
 
 }
@@ -1016,6 +1021,53 @@ void Edit_Exam_questions(short index_exam)
 
 	} while (ans == 'y' || ans == 'Y');
 }
+void view_student()
+{
+	char ans = 'n';
+		if (teacher[user].course.test[0].exam_name.empty())
+		{
+			space();
+			cout << "\n\n\n\n\n\n\t\t\t\t\t\t There is no Exams yet!";
+			cout << "\n\n\n\n\n\n\t\t\t\t\t     Do you want to creat one?(y/n)\n\t\t\t\t\t\t\t";
+			cin >> ans;
+			if (ans == 'y' || ans == 'Y')
+			{
+				system("cls");
+				Creat_new_test();
+			}
+			else
+			{
+				system("cls");
+				main_menu_teacher();
+			}
+		}
+		else
+		{
+				for (int i = 0; i < NUM_OF_EXAM; i++)
+				{
+			if (teacher[user].course.test[i].exam_name.empty())
+				continue;
+			else
+			{
+				//there is an error
+				//when I loged in with Mai and did a history exam and got 1/2 then back to Dr/ Maha to see the grades I found Aya -/2 and Mai -/-
+	        	space();
+				cout << "\t    " << teacher[user].course.test[i].exam_name << "\n\t\t\t\t\t\t--------------\n\n\t\t\t";
+				cout << "Student's Name \t\t Student's ID \t\t " << "The Grade\n\n";
+				for (int j = 0; j < NUM_OF_STUD; j++)
+				{
+					cout << "\t\t\t    " << stud[j].Username << "\t\t\t   " << stud[j].ID_student << "\t\t    ";
+					if (stud[j].course[user].test[j].grade < 0)
+						cout << "-/" << teacher[user].course.test[j].fullmark << "\n\t\t\t\n";
+					else
+						cout << stud[j].course[user].test[j].grade << "/" << teacher[user].course.test[j].fullmark << "\n\n";
+				}
+				}
+			}
+		}
+	
+}
+
 
 
 //student functions
@@ -1104,7 +1156,7 @@ bool timer(short index_sub, short index_test)
 		Sleep(900); //to stop the program for 0.9 sec
 	}
 	if (!is_submit)
-		cout << " Time end \:\( \n You can add only one answer now!" << endl;
+		cout << " Time end :(" << "\n You can add only one answer now!" << endl;
 	time_is_finished = true;
 
 	return true;
