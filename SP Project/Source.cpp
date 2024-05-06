@@ -770,13 +770,6 @@ void time(short index_test)
 	cout << teacher[user].course.test[index_test].time.hours << " h : "
 		<< teacher[user].course.test[index_test].time.min << " min : "
 		<< teacher[user].course.test[index_test].time.sec << " sec " << endl;
-	for (int i = 0; i < NUM_OF_STUD; i++)
-	{
-		stud[i].course[user].test[index_test].time.hours = teacher[user].course.test[index_test].time.hours;
-		stud[i].course[user].test[index_test].time.min = teacher[user].course.test[index_test].time.min;
-		stud[i].course[user].test[index_test].time.sec = teacher[user].course.test[index_test].time.sec;
-	}
-
 }
 void Creat_new_test()
 {
@@ -1118,9 +1111,9 @@ void select_course()
 }
 bool timer(short index_sub, short index_test)
 {
-	int hours = stud[user - NUM_OF_TEACH].course[index_sub].test[index_test].time.hours,
-		min = stud[user - NUM_OF_TEACH].course[index_sub].test[index_test].time.min,
-		sec = stud[user - NUM_OF_TEACH].course[index_sub].test[index_test].time.sec;
+	int hours = teacher[index_sub].course.test[index_test].time.hours,
+		min   = teacher[index_sub].course.test[index_test].time.min,
+		sec   = teacher[index_sub].course.test[index_test].time.sec;
 	/*int hours = 0,
 		min = 1,
 		sec = 0;*/
