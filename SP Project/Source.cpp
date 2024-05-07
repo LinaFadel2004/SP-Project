@@ -33,7 +33,7 @@ struct EXAM
 {
 	string exam_name;
 	TIME time = { 0,0,0 };
-	int grade = -1;
+	int grade = -1 ; 
 	string examText[NUM_OF_QUESTIONS][NUM_OF_OPTIONS];
 	short examAnswer[NUM_OF_QUESTIONS];
 	int fullmark = 0;
@@ -65,7 +65,7 @@ void init();
 void register_sub();
 void display_question(string Question[][NUM_OF_OPTIONS], short Correct_ans[]);
 void Delete(string Question[][NUM_OF_OPTIONS], short Correct_ans[], short dele_ques);
-void Greades(short index_taech);
+void Grades(short index_taech);
 bool sign_in();
 void check_user();
 void space(); //just to make a space before what I'll display
@@ -109,7 +109,7 @@ void edit_ans_stud(short index_exam, short index_sub, short stude_ans[]);
 void Display_Exams(short index_exam, short index_sub, short stude_ans[]);
 void solve_exam(short index_exam, short index_sub);
 void Choose_Exams(short);
-bool timer(short index_sub, short index_test);
+void timer(short index_sub, short index_test);
 
 
 
@@ -139,34 +139,24 @@ void init()
 	teacher[1].course.course_code = "HIST101";
 	stud[0] = { "Aya","2004" , 2023170 };
 	stud[1] = { "Mai","2000" , 2023180 };
+	
 
-	/************ for english ques bank ****************/
-	teacher[0].ques_bank.Question[0][0] = "I was playing football, while my sister.....";
-	teacher[0].ques_bank.Question[0][1] = "was cooking";
-	teacher[0].ques_bank.Question[0][2] = "cooking";
-	teacher[0].ques_bank.Question[0][3] = "cooks";
-	teacher[0].ques_bank.Correct_ans[0] = 1;
-
-	teacher[0].ques_bank.Question[1][0] = "I eat.....apple";
-	teacher[0].ques_bank.Question[1][1] = "a";
-	teacher[0].ques_bank.Question[1][2] = "an";
-	teacher[0].ques_bank.Question[1][3] = "no article";
-	teacher[0].ques_bank.Correct_ans[1] = 2;
-
-	teacher[0].ques_bank.Question[2][0] = "We were on the way to school.Suddenly,the sky.....dark";
-	teacher[0].ques_bank.Question[2][1] = "turns";
-	teacher[0].ques_bank.Question[2][2] = "turned";
-	teacher[0].ques_bank.Question[2][3] = "had turned";
-	teacher[0].ques_bank.Correct_ans[2] = 2;
-
-	/************* English Exam **************************/
+	/************* English Exams **************************/
 	teacher[0].course.test[0].exam_name = "Quiz_1";
 	teacher[0].course.test[0].examText[0][0] = "I was....football";
 	teacher[0].course.test[0].examText[0][1] = "play";
 	teacher[0].course.test[0].examText[0][2] = "played";
 	teacher[0].course.test[0].examText[0][3] = "playing";
 	teacher[0].course.test[0].examAnswer[0] = 3;
+
+	teacher[0].course.test[0].examText[1][0] = "The water....at 100c";
+	teacher[0].course.test[0].examText[1][1] = "boils";
+	teacher[0].course.test[0].examText[1][2] = "boiled";
+	teacher[0].course.test[0].examText[1][3] = "boil";
+	teacher[0].course.test[0].examAnswer[1] = 1;
 	teacher[0].course.test[0].time.min = 1;
+
+
 
 	teacher[0].course.test[1].exam_name = "Quiz_2";
 	teacher[0].course.test[1].examText[0][0] = "I....to the school yesterday";
@@ -179,7 +169,7 @@ void init()
 
 	/**************for history ques bank***********************/
 
-	teacher[1].ques_bank.Question[0][0] = "What is the capital of Egypt?";
+	/*teacher[1].ques_bank.Question[0][0] = "What is the capital of Egypt?";
 	teacher[1].ques_bank.Question[0][1] = "Damascus";
 	teacher[1].ques_bank.Question[0][2] = "Cairo";
 	teacher[1].ques_bank.Question[0][3] = "Giza";
@@ -195,14 +185,15 @@ void init()
 	teacher[1].ques_bank.Question[2][1] = "El-Aqsa flood by Hamas";
 	teacher[1].ques_bank.Question[2][2] = "6th October war";
 	teacher[1].ques_bank.Question[2][3] = "Arab became free";
-	teacher[1].ques_bank.Correct_ans[2] = 1;
+	teacher[1].ques_bank.Correct_ans[2] = 1;*/
+
 }
 void register_sub()
 {
 	for (int i = 0; i < NUM_OF_SUB; i++)
 	{
 		stud[user - NUM_OF_TEACH].course[i].course_name = teacher[i].course.course_name;
-		stud[user - NUM_OF_TEACH].course[i].course_code = teacher[i].course.course_code;
+		//stud[user - NUM_OF_TEACH].course[i].course_code = teacher[i].course.course_code;
 	}
 }
 bool sign_in()
@@ -265,10 +256,12 @@ bool sign_in()
 		}
 		if (!verified)
 		{
-			cout << "\n\t\t\t\t\t   incorrect password or username\n ";
+			cout << "\n\t\t\t\t\t\a   incorrect password or username\n ";
 			verified = false;
 			trials--;
 			password.clear();
+			Sleep(800);
+			system("cls");
 		}
 
 		if (verified)
@@ -279,7 +272,7 @@ bool sign_in()
 	} while (!verified && trials > 0);
 
 
-	cout << "\t\nYou have reached the maximum number of trials, please try again \n";
+	cout << "\t\n\t\t\t\t\tYou have reached the maximum number of trials, please try again \n";
 	return false;
 
 
@@ -290,7 +283,10 @@ void check_user()
 	if (user < NUM_OF_TEACH)
 		handle_teacher();
 	else
+	{
+		register_sub();
 		handle_student();
+	}
 }
 void space()
 {
@@ -311,12 +307,13 @@ void profile_teach()
 }
 void profile_stud()
 {
-	cout << " ID:\t\t" << stud[user - NUM_OF_TEACH].ID_student << endl;
-	cout << " Username :\t\t" << stud[user - NUM_OF_TEACH].Username << endl;
-	cout << " Password :\t\t" << stud[user - NUM_OF_TEACH].correctpassword << endl;
+	space();
+	cout << " ID:\t\t\t" << stud[user - NUM_OF_TEACH].ID_student << endl;
+	cout << "\t\t\t\t\t Username :\t\t " << stud[user - NUM_OF_TEACH].Username << endl;
+	cout << "\t\t\t\t\t Password :\t\t " << stud[user - NUM_OF_TEACH].correctpassword << endl;
 	for (int i = 0; i < NUM_OF_SUB; i++)
-		cout << " Course Name:\t\t" << stud[user - NUM_OF_TEACH].course[i].course_name <<
-		"\t\t" << stud[user - NUM_OF_TEACH].course[i].course_code << endl;
+		cout << "\t\t\t\t\t Course Name:\t\t " << stud[user - NUM_OF_TEACH].course[i].course_name <<
+		"\t\t " << stud[user - NUM_OF_TEACH].course[i].course_code << endl;
 
 
 }
@@ -325,7 +322,6 @@ void handle_teacher()
 {
 	char ans;
 	int choice;
-
 	do
 	{
 		choice = main_menu_teacher();
@@ -368,8 +364,9 @@ void handle_teacher()
 		cin >> ans;
 	} while (ans == 'Y' || ans == 'y');
 	system("cls");
+	space();
 	cout<<"Thank you for using our system :)\n";
-	cout << "\n*-----------------------------------------------------------------------------------*\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout << "\n\t\t*-----------------------------------------------------------------------------------*\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
 void handle_student()
 {
@@ -404,20 +401,22 @@ void handle_student()
 			ans = 'y';
 			continue;
 		}
-		cout << "\n\tBack to the Main Menu? (y/n)\n";
+		cout << "\n\n\t\t\t\t\tBack to the Main Menu? (y/n)\n\t\t\t\t\t";
 		cin >> ans;
 	} while (ans == 'y' || ans == 'Y');
 	system("cls");
-	cout << "\n\n\n\n\n\n\n\t\t\t\t\tThank you for using our system :)\n";
-	cout << "\n*-----------------------------------------------------------------------------------*\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	space();
+	cout << "Thank you for using our system :)\n";
+	cout << "\n\t\t*-----------------------------------------------------------------------------------*\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 }
 
 
 //general functions
 void display_question(string Question[][NUM_OF_OPTIONS], short Correct_ans[])
 {
+	system("cls");
 	if (Question[0][0].empty())
-		cout << " There is no any Question\n\n";
+		cout << "\n\n\n\n\n\n\n\n\t\t\t\t\tThere is no any Question\n\n";
 
 	else
 	{
@@ -468,19 +467,19 @@ void Delete(string Question[][NUM_OF_OPTIONS], short Correct_ans[], short dele_q
 	}
 
 }
-void Greades(short index_sub)
+void Grades(short index_sub)
 {
 	for (int j = 0; j < NUM_OF_EXAM; j++)
 	{
 		if (teacher[index_sub].course.test[j].exam_name.empty())
-			cout << "\t\t    ~ \t\t\t   -/-\n";
+			cout << "\t\t\t\t\t    ~ \t\t\t    -/-\n";
 		else
 		{
-			cout << "\t          " << teacher[index_sub].course.test[j].exam_name;
+			cout << "\t\t\t\t\t  " << teacher[index_sub].course.test[j].exam_name;
 			if (stud[user - NUM_OF_TEACH].course[index_sub].test[j].grade >= 0)
-				cout << "\t           " << stud[user - NUM_OF_TEACH].course[index_sub].test[j].grade << "/" << teacher[index_sub].course.test[j].fullmark << endl;
+				cout << "\t\t    " << stud[user - NUM_OF_TEACH].course[index_sub].test[j].grade << "/" << teacher[index_sub].course.test[j].fullmark << endl;
 			else
-				cout << "\t\t   -/" << teacher[index_sub].course.test[j].fullmark << endl;
+				cout << "\t\t    -/-"<< endl;
 		}
 	}
 	
@@ -492,7 +491,7 @@ int main_menu_teacher()
 {
 	int choice;
 	space();
-	cout << "|Press...\n\n\t\t\t\t\t"
+	cout << "    |Press...\n\n\t\t\t\t\t"
 		<< "1 --> My Profile\n\t\t\t\t\t" //username, password, course code 
 		<< "2 --> Question Bank\n\t\t\t\t\t" // add, delete all questions in one place 
 		<< "3 --> Create New Test\n\t\t\t\t\t" //generate time for test, add questions to test
@@ -504,13 +503,13 @@ int main_menu_teacher()
 }
 int main_menu_stud()
 {
-	space();
 	int choice;
-	cout << "\n|Press...\n\n"
-		<< "1 --> My Profile\n" //username, password, course code, id
-		<< "2 --> Select Course to do exam\n" // select course --> course name & course code 
+	space();
+	cout << "    |Press...\n\n\t\t\t\t\t"
+		<< "1 --> My Profile\n\t\t\t\t\t" //username, password, course code, id
+		<< "2 --> Select Course to do exam\n\t\t\t\t\t" // select course --> course name & course code 
 		//select course --> select test --> answer it (limited time) --> submit
-		<< "3 --> View My Grades\n" // see all grades --> see grades for all subjects, course code --> see grades for just one subject
+		<< "3 --> View My Grades\n\t\t\t\t\t" // see all grades --> see grades for all subjects, course code --> see grades for just one subject
 		<< "4 --> Logout :(\n\t\t\t\t\t"; //directed to login page
 	cin >> choice;
 	return choice;
@@ -524,11 +523,12 @@ void questions_bank()
 	char ans;
 	short choice;
 		system("cls");
-		cout << "\n\n";
+	display_question(teacher[user].ques_bank.Question, teacher[user].ques_bank.Correct_ans);
+	cout << "\n\n";
 	do
 	{
 		space();
-		cout << "    Press...\n\t\t\t\t\t";
+		cout << "    |Press...\n\t\t\t\t\t";
 		cout << "1--> Add New Question\n\t\t\t\t\t";
 		cout << "2-->Edit Question\n\t\t\t\t\t";
 		cout << "3-->Delete Question\n\t\t\t\t\t";
@@ -650,7 +650,7 @@ void choice_edit_Exam(short index_exam)
 	{
 		system("cls");
 		space();
-		cout << "|Press edit type...\n\n\t\t\t\t\t"
+		cout << "    |Press edit type...\n\n\t\t\t\t\t"
 			<< "1 --> Exam name \n\t\t\t\t\t"
 			<< "2 --> Exam time\n\t\t\t\t\t"
 			<< "3 --> Exam questions\n\t\t\t\t\t"
@@ -661,7 +661,7 @@ void choice_edit_Exam(short index_exam)
 		case 1:
 			system("cls");
 			space();
-			cout << "\n\tType the new Exam name\n";
+			cout << "Type the new Exam name\n";
 			cin.ignore();
 			space();
 			getline(cin, teacher[user].course.test[index_exam].exam_name);
@@ -693,7 +693,7 @@ void choice_edit_Exam(short index_exam)
 			continue;
 		}
 		space();
-		cout << "Another edit ? (y/n)\n\t\t\t\t\t";
+		cout << "Do you want to do another edit ? (y/n)\n\t\t\t\t\t";
 		cin >> ans;
 	} while (ans == 'y' || ans == 'Y');
 }
@@ -736,7 +736,7 @@ void edit_and_display_pre_exam()
 				cout << "*Enter the test number to delete it*\n\n\t\t\t\t\t";
 				cin >> test_num;
 				delete_exam(test_num - 1);
-				cout << "\n\tDone\n";
+				cout << "\n\t\t\t\t\t*--Done--*\n";
 				break;
 			case 4:
 				ans = 'n';
@@ -754,7 +754,17 @@ void edit_and_display_pre_exam()
 		} while (ans == 'y' || ans == 'Y');
 	}
 	else
-		cout << "\n\n\n\n\n\t\t\t\t\t There are no tests yet\n";
+	{
+		cout << "\n\n\n\n\n\t\t\t\t\t    There are no tests yet\n";
+		space();
+		cout << "Do you want to creat one?(Y/N)\n\t\t\t\t\t";
+		cin >> ans;
+		if(ans == 'y' || ans == 'Y')
+		{
+			system("cls");
+			Creat_new_test();
+		}
+	}
 
 }
 void time(short index_test)
@@ -773,6 +783,7 @@ void time(short index_test)
 }
 void Creat_new_test()
 {
+	system("cls");
 	short selected_ques[NUM_OF_QUESTIONS] = {};
 	if (teacher[user].course.test[NUM_OF_EXAM - 1].exam_name != "")   //the last test is full
 	{
@@ -789,7 +800,8 @@ void Creat_new_test()
 				{
 		            space(); 
 					cout << "*Type the Exam name*\n\t\t\t\t\t ------------------\n\t\t\t\t\t";
-					cin >> teacher[user].course.test[index_test].exam_name;
+					cin.ignore();
+					getline(cin,teacher[user].course.test[index_test].exam_name);
 					time(index_test);
 		            space();  
 					cout << "*Enter the number of the selected questions*\n\t\t\t\t\t------------------------------------------\n";
@@ -845,22 +857,54 @@ void delete_exam(short index_test)
 	{
 		if (teacher[user].course.test[index_test].exam_name != "")
 		{
-			teacher[user].course.test[index_test].exam_name.clear();
-			teacher[user].course.test[index_test].time.hours = NULL;
-			teacher[user].course.test[index_test].time.min = NULL;
-			teacher[user].course.test[index_test].time.sec = NULL;
-			for (int i = 0; i < NUM_OF_QUESTIONS; i++)
+			/* teacher[user].course.test[index_test].exam_name.clear();
+			 teacher[user].course.test[index_test].time.hours = NULL;
+			 teacher[user].course.test[index_test].time.min = NULL;
+			 teacher[user].course.test[index_test].time.sec = NULL;
+			 teacher[user].course.test[index_test].fullmark = 0;*/
+
+			for (int t = index_test + 1; t < NUM_OF_EXAM; t++)
 			{
-				if (teacher[user].course.test[index_test].examAnswer[i] != NULL) //if row is not empty
+				teacher[user].course.test[t - 1].exam_name = teacher[user].course.test[t].exam_name;
+				teacher[user].course.test[t - 1].time.hours = teacher[user].course.test[t].time.hours;
+				teacher[user].course.test[t - 1].time.min = teacher[user].course.test[t].time.min;
+				teacher[user].course.test[t - 1].time.sec = teacher[user].course.test[t].time.sec;
+				teacher[user].course.test[t - 1].fullmark = teacher[user].course.test[t].fullmark;
+				for (int j = 0; j < NUM_OF_STUD; j++)
 				{
+					stud[j].course[user].test[t - 1].grade = stud[j].course[user].test[t].grade;
+				}
+
+				for (int i = 0; i < NUM_OF_QUESTIONS; i++)
+				{
+
 					for (int j = 0; j < NUM_OF_OPTIONS; j++)
 					{
-						teacher[user].course.test[index_test].examText[i][j].clear();
+						// teacher[user].course.test[index_test].examText[i][j].clear();
+						teacher[user].course.test[t - 1].examText[i][j] = teacher[user].course.test[t].examText[i][j];
 					}
-					teacher[user].course.test[index_test].examAnswer[i] = NULL;
+					// teacher[user].course.test[index_test].examAnswer[i] = NULL;
+					teacher[user].course.test[t - 1].examAnswer[i] = teacher[user].course.test[t].examAnswer[i];
+
 				}
-				else
-					break;    //if question[i] is empty that mean question[i+1,+2...]is empty too
+			}
+			teacher[user].course.test[NUM_OF_EXAM - 1].exam_name.clear();            //delete data from the last exam
+			teacher[user].course.test[NUM_OF_EXAM - 1].time.hours = NULL;
+			teacher[user].course.test[NUM_OF_EXAM - 1].time.min = NULL;
+			teacher[user].course.test[NUM_OF_EXAM - 1].time.sec = NULL;
+			teacher[user].course.test[NUM_OF_EXAM - 1].fullmark = 0;
+			for (int j = 0; j < NUM_OF_STUD; j++)
+			{
+				stud[j].course[user].test[NUM_OF_EXAM - 1].grade = -1;
+			}
+			for (int i = 0; i < NUM_OF_QUESTIONS; i++)
+			{
+				for (int j = 0; j < NUM_OF_OPTIONS; j++)
+				{
+					teacher[user].course.test[NUM_OF_EXAM - 1].examText[i][j].clear();
+				}
+				teacher[user].course.test[NUM_OF_EXAM - 1].examAnswer[i] = NULL;
+
 			}
 		}
 		else
@@ -870,7 +914,10 @@ void delete_exam(short index_test)
 		}
 	}
 	else
-		cout << "There are no tests to delete it \n";
+	{
+		system("cls");
+		cout << "\n\n\n\n\n\n\t\t\t\t\tThere are no tests to delete it \n";
+	}
 
 }
 void Select_ques(short num_selected_ques[NUM_OF_QUESTIONS], short index_test)
@@ -973,7 +1020,7 @@ void Edit_Exam_questions(short index_exam)
 	do
 	{
 		space();
-		cout << "|Press...\n\n\t\t\t\t\t"
+		cout << "    |Press...\n\n\t\t\t\t\t"
 			<< "1-Add new question\n\t\t\t\t\t"
 			<< "2-Change a question from test bank\n\t\t\t\t\t"
 			<< "3-Delete a question\n\t\t\t\t\t"
@@ -1004,7 +1051,7 @@ void Edit_Exam_questions(short index_exam)
 			continue;
 		default:
 			space();
-			cout << "invalid choice please choose from 1 to 3\n";
+			cout << "invalid choice please choose from 1 to 4\n";
 			ans = 'y';
 			continue;
 		}
@@ -1017,49 +1064,44 @@ void Edit_Exam_questions(short index_exam)
 void view_student()
 {
 	char ans = 'n';
-		if (teacher[user].course.test[0].exam_name.empty())
+	if (teacher[user].course.test[0].exam_name.empty())
+	{
+		space();
+		cout << "\n\n\n\n\n\n\t\t\t\t\t\t There is no Exams yet!";
+		cout << "\n\n\n\n\n\n\t\t\t\t\t     Do you want to creat one?(y/n)\n\t\t\t\t\t\t\t";
+		cin >> ans;
+		if (ans == 'y' || ans == 'Y')
 		{
-			space();
-			cout << "\n\n\n\n\n\n\t\t\t\t\t\t There is no Exams yet!";
-			cout << "\n\n\n\n\n\n\t\t\t\t\t     Do you want to creat one?(y/n)\n\t\t\t\t\t\t\t";
-			cin >> ans;
-			if (ans == 'y' || ans == 'Y')
-			{
-				system("cls");
-				Creat_new_test();
-			}
-			else
-			{
-				system("cls");
-				main_menu_teacher();
-			}
+			system("cls");
+			Creat_new_test();
 		}
-		else
+	}
+	else
+	{
+		for (int i = 0; i < NUM_OF_EXAM; i++)
 		{
-				for (int i = 0; i < NUM_OF_EXAM; i++)
-				{
 			if (teacher[user].course.test[i].exam_name.empty())
 				continue;
 			else
 			{
-				//there is an error
-				//when I loged in with Mai and did a history exam and got 1/2 then back to Dr/ Maha to see the grades I found Aya -/2 and Mai -/-
-	        	space();
+				space();
 				cout << "\t    " << teacher[user].course.test[i].exam_name << "\n\t\t\t\t\t\t--------------\n\n\t\t\t";
 				cout << "Student's Name \t\t Student's ID \t\t " << "The Grade\n\n";
 				for (int j = 0; j < NUM_OF_STUD; j++)
 				{
 					cout << "\t\t\t    " << stud[j].Username << "\t\t\t   " << stud[j].ID_student << "\t\t    ";
-					if (stud[j].course[user].test[j].grade < 0)
-						cout << "-/" << teacher[user].course.test[j].fullmark << "\n\t\t\t\n";
+					if (stud[j].course[user].test[i].grade < 0)
+						cout << "-/-" << "\n\t\t\t\n";
 					else
-						cout << stud[j].course[user].test[j].grade << "/" << teacher[user].course.test[j].fullmark << "\n\n";
-				}
+						cout << stud[j].course[user].test[i].grade << "/" << teacher[user].course.test[i].fullmark << "\n\n";
 				}
 			}
 		}
-	
+	}
+
 }
+	
+
 
 
 
@@ -1071,17 +1113,13 @@ void select_course()
 	char ans = 'n';
 	do
 	{
-
-
-		cout << "Select the Course to do Exam\n";
+		space();
+		cout << "Select the Course to do Exam\n\t\t\t\t\t";
 		for (int i = 0; i < NUM_OF_SUB; i++)
 		{
-
-
-			cout << i + 1 << " --> " << teacher[i].course.course_name << endl;
-
+			cout << i+1 << "--> " << stud[user - NUM_OF_TEACH].course[i].course_name << "\n\t\t\t\t\t";
 		}
-		cout << NUM_OF_SUB + 1 << " --> " << " Cancel\n";
+		cout << NUM_OF_SUB + 1 <<"--> " << "Cancel\n\t\t\t\t\t";
 		cin >> choice;
 		for (int i = 0; i < NUM_OF_SUB; i++)
 		{
@@ -1098,28 +1136,28 @@ void select_course()
 
 		else if (choice > NUM_OF_SUB + 1)
 		{
-			cout << "\n\tinvalid choice please enter valid number\n\n";
+			cout << "\n\t\t\t\t\tinvalid choice please enter valid number\n\n";
 			ans = 'y';
 			continue;
 		}
 
-		cout << "\n\tDo another exam?(y/n)\n";
+		cout << "\n\t\t\t\t\t\tDo another exam?(y/n)\n\t\t\t\t\t";
 		cin >> ans;
 	} while (ans == 'y' || ans == 'Y');
 
 
 }
-bool timer(short index_sub, short index_test)
+void timer(short index_sub, short index_test)
 {
 	int hours = teacher[index_sub].course.test[index_test].time.hours,
-		min   = teacher[index_sub].course.test[index_test].time.min,
-		sec   = teacher[index_sub].course.test[index_test].time.sec;
+		min = teacher[index_sub].course.test[index_test].time.min,
+		sec = teacher[index_sub].course.test[index_test].time.sec;
 	/*int hours = 0,
 		min = 1,
 		sec = 0;*/
 	while (true)
 	{
-		cout << "\r\t\t\t\t\t\t\t" << hours << ":" << min << ":" << sec << "\r";
+		cout << "\r\t\t\t\t\t\t\t\t\t" << hours << ":" << min << ":" << sec << "\r";
 		//system("cls");   //to clean the screen display and show the updated time
 		if (is_submit)
 			break;
@@ -1149,10 +1187,11 @@ bool timer(short index_sub, short index_test)
 		Sleep(900); //to stop the program for 0.9 sec
 	}
 	if (!is_submit)
-		cout << " Time end :(" << "\n You can add only one answer now!" << endl;
+	{
+		cout << "\n\t\t\t\t\t\aTime end :( " << endl;
+	}
 	time_is_finished = true;
 
-	return true;
 
 }
 void solve_exam(short index_exam, short index_sub)
@@ -1164,8 +1203,12 @@ void solve_exam(short index_exam, short index_sub)
 	Display_Exams(index_exam, index_sub, stude_ans);
 	while (!time_is_finished && (ans == 'y' || ans == 'Y'))
 	{
-		cout << "Do you want to Edit any answer (y\\n)?\n";
+		cout << "\n\t\t\t\t\tDo you want to Edit any answer (y/n)?\n\t\t\t\t\t";
 		cin >> ans;
+		if (time_is_finished)
+		{
+			ans = 'n';
+		}
 		if (ans == 'y' || ans == 'Y')
 		{
 			edit_ans_stud(index_exam, index_sub, stude_ans);
@@ -1189,6 +1232,7 @@ void Choose_Exams(short choice)
 		is_submit = false;
 		if (!teacher[choice].course.test[0].exam_name.empty())
 		{
+			system("cls");
 			space();
 			cout << "please choose the exam\n";
 			short count_exam = 0;
@@ -1196,6 +1240,7 @@ void Choose_Exams(short choice)
 			{
 				if (!teacher[choice].course.test[j].exam_name.empty())
 				{
+					cout << "\t\t\t\t\t";
 					cout << j + 1 << " --> " << teacher[choice].course.test[j].exam_name << " \t\t" <<
 						teacher[choice].course.test[j].time.hours << " h : "
 						<< teacher[choice].course.test[j].time.min << " min : "
@@ -1205,7 +1250,8 @@ void Choose_Exams(short choice)
 				else
 					break;
 			}
-			cout << count_exam + 1 << " --> Cancel\n";
+			cout << "\t\t\t\t\t";
+			cout << count_exam + 1 << " --> Cancel\n\t\t\t\t\t";
 			cin >> exam_num;
 			for (int i = 0; i < count_exam; i++)
 				if (exam_num == i + 1)
@@ -1220,13 +1266,10 @@ void Choose_Exams(short choice)
 			else if (exam_num > count_exam + 1)
 			{
 				system("cls");
-				space();
-				cout << "\n\n\n\n\ninvalid choice please enter valid number\n\n";
+				cout << "\n\n\n\n\n\t\t\t\t\tinvalid choice please enter valid number\n\n";
 				ans = 'y';
 				continue;
-
 			}
-
 		}
 		else
 		{
@@ -1236,62 +1279,72 @@ void Choose_Exams(short choice)
 			break;
 		}
 		space();
-		cout << "Do you want to answer another test?\n";
+		cout << "Do you want to answer another test?\n\t\t\t\t\t";
 		cin >> ans;
 
 	} while (ans == 'y' || ans == 'Y');
 
 }
+void Display_Exams(short index_exam, short index_sub, short stude_ans[])
+{           
+	cout << "\n\t\t\t\t\t" << "Enter your answer number OR Enter '0' to skip\n\t\t\t\t\t---------------------------------------------\t\t\t\t\t\n";
+	for (int i = 0; i < NUM_OF_QUESTIONS && !time_is_finished; i++)
+	{
+		if (!teacher[index_sub].course.test[index_exam].examText[i][0].empty())
+		{
+			cout << "\n\t\t\t\t\t";
+			cout << i + 1 << "-->" << teacher[index_sub].course.test[index_exam].examText[i][0] << "\n\n\t\t\t\t\t";
+			for (int j = 1; j < NUM_OF_OPTIONS; j++)
+				cout  << j << ")" << teacher[index_sub].course.test[index_exam].examText[i][j] << "       ";
+				cout << "\n\t\t\t\t\t\t\t\t\t\t";
+				cin >> stude_ans[i];
+				if (time_is_finished)
+				{
+					stude_ans[i] = 0;
+					cout << "\n\t\t\t\t\t\aThe answer was ignored\n";
+				}
+		}
+		else
+			break;
+	}
+}
 void submit_ans(short index_exam, short index_sub, short stude_ans[])
 {
-	short correct_ans = 0;
+	short num_correct_ans = 0;
 	int num_que_in_exam = 0;
-	for (; num_que_in_exam < NUM_OF_QUESTIONS || !time_is_finished;)
+	for (; num_que_in_exam < NUM_OF_QUESTIONS;)
 	{
+
 		if (!teacher[index_sub].course.test[index_exam].examText[num_que_in_exam][0].empty())
 		{
 			if (stude_ans[num_que_in_exam] == teacher[index_sub].course.test[index_exam].examAnswer[num_que_in_exam])
-				correct_ans++;
+				num_correct_ans++;
 			num_que_in_exam++;
 		}
 		else
 			break;
 
 	}
-	teacher[index_sub].course.test[index_exam].grade = correct_ans;
-	stud[user - NUM_OF_TEACH].course[index_sub].test[index_exam].grade = correct_ans;
+	stud[user - NUM_OF_TEACH].course[index_sub].test[index_exam].grade = num_correct_ans;
 	teacher[index_sub].course.test[index_exam].fullmark = num_que_in_exam;
-	cout << " Your Grade is " << stud[user - NUM_OF_TEACH].course[index_sub].test[index_exam].grade << "\\" << num_que_in_exam << endl;
+	cout << "\n\t\t\t\t\tYour Grade is : " << stud[user - NUM_OF_TEACH].course[index_sub].test[index_exam].grade << "\\" << num_que_in_exam << endl;
 }
 void edit_ans_stud(short index_exam, short index_sub, short stude_ans[])
 {
 	short ques_edit;
-	cout << "Please Enter number of question to edit answer it\n";
+	cout << "\n\t\t\t\t\tPlease Enter number of question to edit answer it\n\t\t\t\t\t";
 	cin >> ques_edit;
-	cout << "please Enter the new answer\n";
+	int pre_ans = stude_ans[ques_edit - 1];
+	cout << "\t\t\t\t\tplease Enter the new answer\n\t\t\t\t\t";
 	cin >> stude_ans[ques_edit - 1];
-	cout << "Done\n";
+	if (time_is_finished)
+	{
+		stude_ans[ques_edit - 1] = pre_ans;
+		cout << "\n\t\t\t\t\t\aThe editing was ignored\n";
+	}
+	cout << "\n\t\t\t\t\t*--Done--*\n\t\t\t\t\t";
 	display_question(teacher[index_sub].course.test[index_exam].examText, stude_ans);
 
-}
-void Display_Exams(short index_exam, short index_sub, short stude_ans[])
-{
-	for (int i = 0; i < NUM_OF_QUESTIONS || !time_is_finished; i++)
-	{
-		if (!teacher[index_sub].course.test[index_exam].examText[i][0].empty())
-		{
-			cout << "\n" << i + 1 << " --> " << teacher[index_sub].course.test[index_exam].examText[i][0] << endl;
-			for (int j = 1; j < NUM_OF_OPTIONS; j++)
-				cout << " " << j << " --> " << teacher[index_sub].course.test[index_exam].examText[i][j] << "\t\t";
-			cout << "\n\t\t\t\t\t" << "Enter your answer number OR Enter '0' to skip\n\t\t\t\t\t";
-			if (time_is_finished)
-				break;
-			else
-				cin >> stude_ans[i];
-		}
-		else
-			break;
-	}
 }
 void view_grades_stud()
 {
@@ -1300,45 +1353,50 @@ void view_grades_stud()
 	short index_sub;
 	do
 	{
-		cout << "\n\t|Press...\n\n"
-			<< "1 --> View All Your Grades\n"
-			<< "2 --> View English grade\n"
-			<< "3 --> View History grade\n"
-			<< "4 --> cancel\n";
+		cout << "\n\t\t\t\t\t|Press...\n\n\t\t\t\t\t"
+			<< "1 --> View All Your Grades\n\t\t\t\t\t";
+		
+		for (int i = 2;i < NUM_OF_SUB+2; i++)
+		{
+			cout  << i << "--> view " << stud[user - NUM_OF_TEACH].course[i - 2].course_name << " greads \n\t\t\t\t\t";
+		}
+		cout << NUM_OF_SUB + 2 << "--> Cancel\n\t\t\t\t\t";
+		
 		cin >> choice;
+		system("cls");
 		index_sub = choice - 2; //if the user chose 2 this mean the teacher who has index 2 - 2 = 0 and so on..
 		switch (choice)
 		{
 		case 1:
-			for (int i = 0; i < NUM_OF_TEACH; i++)
+			for (int i = 0; i < NUM_OF_SUB; i++)
 			{
-				cout << "\t\t\t    " << stud[user-NUM_OF_TEACH].course[i].course_name << endl;
-				cout << "\t\t Test Name \t\t Your Grade\n";
-				Greades(i);
+				cout << "\n\t\t\t\t\t\t    " << stud[user-NUM_OF_TEACH].course[i].course_name << endl;
+				cout << "\t\t\t\t\t Test Name \t\t Your Grade\n";
+				Grades(i);
 			}
 			break;
 		case 2:
-			cout << "\t\t\t    " << stud[user-NUM_OF_TEACH].course[index_sub].course_name << endl;
-			cout << "\t\t Test Name \t\t Your Grade\n";
-			Greades(index_sub);
+			cout << "\t\t\t\t\t\t    " << stud[user-NUM_OF_TEACH].course[index_sub].course_name << endl;
+			cout << "\t\t\t\t\t Test Name \t\t Your Grade\n";
+			Grades(index_sub);
 			break;
 		case 3:
-			cout << "\t\t\t    " << stud[user - NUM_OF_TEACH].course[index_sub].course_name << endl;
-			cout << "\t\t Test Name \t\t Your Grade\n";
-			Greades(index_sub);
+			cout << "\t\t\t\t\t\t    " << stud[user - NUM_OF_TEACH].course[index_sub].course_name << endl;
+			cout << "\t\t\t\t\t Test Name \t\t Your Grade\n";
+			Grades(index_sub);
 			break;
 		case 4:
 			ans = 'n';
 			continue;
 		default:
-			cout << "Invalid choice, please choose from 1 to 3";
+			cout << "\n\n\n\n\t\t\t\t\tInvalid choice, please choose from 1 to 3";
 			ans = 'y';
 			continue;
 		}
-		cout << "Do you want to choose another viewing option? (y/n)\n";
+		cout << "\n\t\t\t\t\tDo you want to choose another viewing option? (y/n)\n\t\t\t\t\t";
 		cin >> ans;
 	} while (ans == 'y' || ans == 'Y');
 }
 
-
+/*                وكان فضل الله علينا عظيما               */
 /*                Done ALHAMDULILLAH (^_^)                 */
